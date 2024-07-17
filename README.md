@@ -93,4 +93,4 @@ terrafrom init
 terrafrom plan 
 terraform apply
 ```
-- Terraform stat is stored localy
+- Terraform state is stored localy
