@@ -46,7 +46,4 @@ jobs:
         docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PAT
         docker image tag hello-world:latest $DOCKERHUB_USER/hello-world:latest
         docker image push $DOCKERHUB_USER/hello-world:latest
-        
-        echo "Checked DockerHub image pushed"
-        docker search $DOCKERHUB_USER/hello-world
       working-directory: App
