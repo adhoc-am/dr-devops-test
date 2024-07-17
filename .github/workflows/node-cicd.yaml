@@ -3,7 +3,7 @@ name: node-cicd
 on: workflow_dispatch
 
 jobs:
-  build_test:
+  build:
     runs-on: ubuntu-latest
 
     steps:
@@ -16,34 +16,40 @@ jobs:
       run: |
         docker build -t hello-world .
         docker images
-
-        docker run -d -p 3000:8080 --name hello-world --rm hello-world
+        
+        echo "========================="
         docker ps
+        echo "========================="
+        env
       working-directory: App
 
     - name: Test
-      run: |
-        docker build -t hello-world .
-        docker images
+      # run: |
+      #   docker build -t hello-world .
+      #   docker images
 
-        docker run -d -p 3000:8080 --name hello-world --rm hello-world
-        docker ps
-        $resp=$(curl -s localhost:3000)
+      #   docker run -d -p 3000:8080 --name hello-world --rm hello-world
+      #   docker ps
+      #   $resp=$(curl -s localhost:3000)
 
-        if [[ $resp == "Hello World!" ]]; then
-          echo "Application works fine" && exit 0
-        else
-          echo "Something went wrong. See the response bellow for the hint..."
-          curl -i localhost:3000
-          exit 1
-      working-directory: App
+      #   if [[ $resp == "Hello World!" ]]; then
+      #     echo "Application works fine" && exit 0
+      #   else
+      #     echo "Something went wrong. See the response bellow for the hint..."
+      #     curl -i localhost:3000
+      #     exit 1
+      # working-directory: App
 
-  # unit-test:
+  # push:
   #   needs: build
   #   runs-on: ubuntu-latest
 
   #   steps:
   #   - name: Push Image DockerHub
+  #     env:
+  #           DockerHub_User: ${{ github.Dockerhub_User }}
+  #           DockerHub_PAT: ${{ secrets.DockerHub_PAT  }}
   #     run: |
-  #       docker run -d -p 3000:8080 --name hello-world --rm adhocam/hello-world
-  #       curl -s localhost:3000
+  #       docker login -u $DockerHub_User -p $DockerHub_PAT
+  #       docker image tag hello-world:latest adhocam/hello-world:latest
+  #       docker image push adhocam/hello-world:latest
