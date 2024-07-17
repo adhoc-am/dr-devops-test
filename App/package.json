@@ -1,14 +1,14 @@
 {
-    "name": "my-nodejs-app",
+    "name": "hello-world",
     "version": "1.0.0",
     "description": "A simple Node.js application with tests",
-    "main": "server.js",
+    "main": "hello-world.js",
     "scripts": {
       "start": "node server.js",
-      "test": "mocha test/server.test.js"
+      "test": "mocha test/hello-world.test.js"
     },
     "dependencies": {
-      "express": "^4.17.1",
+      "express": "^4.17.1"
     },
     "devDependencies": {
       "mocha": "^9.2.0",
