@@ -1,17 +1,24 @@
-describe('HTTP Server Test', function() {
+const assert = require('assert');
+const http = require('http');
+const request = require('../hello-world');
+
+// Your server creation logic (server.js)
+const server = http.createServer(function(req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.end('Hello World!');
+});
+
+escribe('HTTP Server Test', function() {
     let app;
   
-    // Before each test, start the server
     beforeEach(function(done) {
       app = server.listen(8080, done);
     });
   
-    // After each test, close the server
     afterEach(function(done) {
       app.close(done);
     });
   
-    // Test case for GET /
     it('responds with Hello World', function(done) {
       request(server)
         .get('/')
