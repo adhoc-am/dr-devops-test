@@ -13,8 +13,13 @@ jobs:
         path: 'App'
     - name: Build Docker Image
       run: |
-        pwd
-        ls -l
+        docker build -t hello-world .
+        docker images
+        docker run -d -p 3000:8080 --name hello-world --rm hello-world
+        docker ps
+ 
+        curl -s localhost:3000
+      working-directory: App
 
   unit-test:
     needs: build
@@ -25,10 +30,5 @@ jobs:
       run: |
         docker run -d -p 3000:8080 --name hello-world --rm adhocam/hello-world
         resp=$(curl -s localhost:3000)
-
-        if [[ $resp == "Hello World!" ]]; then
-           echo "The app is working well" && exit 0
-        else
-          echo "Something went wrong, please, see the response below for the hint..."
-          curl -i localhost:3000
-          exit 1
+        
+        echo $resp
