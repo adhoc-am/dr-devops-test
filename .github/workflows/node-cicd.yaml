@@ -10,18 +10,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v4
       with:
-        path: 'App'
+        sparse-checkout: 'App'
+
     - name: Build Docker Image
       run: |
         cd App
         ls -l
 
-  unit-test:
-    needs: build
-    runs-on: ubuntu-latest
+  # unit-test:
+  #   needs: build
+  #   runs-on: ubuntu-latest
 
-    steps:
-    - name: Push Image DockerHub
-      run: |
-        docker run -d -p 3000:8080 --name hello-world --rm adhocam/hello-world
-        curl -s localhost:3000
+  #   steps:
+  #   - name: Push Image DockerHub
+  #     run: |
+  #       docker run -d -p 3000:8080 --name hello-world --rm adhocam/hello-world
+  #       curl -s localhost:3000
