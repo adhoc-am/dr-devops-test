@@ -23,30 +23,30 @@ jobs:
         npm test -- tests/hello-world.test.js
       working-directory: App
 
-  # build-push:
-  #   needs: unit-test
-  #   runs-on: ubuntu-latest
+  build-push:
+    needs: unit-test
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #   - name: Checkout
-  #     uses: actions/checkout@v4
-  #     with:
-  #       sparse-checkout: 'App'
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: 'App'
 
-  #   - name: Build Push Image
-  #     env:
-  #       DockerHub_User: ${{ github.Dockerhub_User }}
-  #       DockerHub_PAT: ${{ secrets.DockerHub_PAT  }}
-  #     run: |
-  #       echo "Build Image"
-  #       docker build -t hello-world .
-  #       docker images
+    - name: Build Push Image
+      env:
+        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+        DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT  }}
+      run: |
+        echo "Build Image"
+        docker build -t hello-world .
+        docker images
         
-  #       echo "Tag image for DockerHub"
-  #       docker login -u $DockerHub_User -p $DockerHub_PAT
-  #       docker image tag hello-world:latest ${{ github.Dockerhub_User }}/hello-world:latest
-  #       docker image push ${{ github.Dockerhub_User }}/hello-world:latest
+        echo "Tag and push image to DockerHub"
+        docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PAT
+        docker image tag hello-world:latest $DOCKERHUB_USER/hello-world:latest
+        docker image push $DOCKERHUB_USER/hello-world:latest
         
-  #       echo "Checked DockerHub image pushed"
-  #       docker search ${{ github.Dockerhub_User }}/hello-world
-  #     working-directory: App
+        echo "Checked DockerHub image pushed"
+        docker search $DOCKERHUB_USER/hello-world
+      working-directory: App
