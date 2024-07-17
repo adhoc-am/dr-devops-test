@@ -57,6 +57,9 @@ docker image tag hello-world:latest adhocam/hello-world:latest
 docker image push adhocam/hello-world:latest
 ```
 - Image link [adhocam/hello-world](https://hub.docker.com/repository/docker/adhocam/hello-world/general)
+```
+docker pull adhocam/hello-world:latest
+```
 
 - Check
 ```
