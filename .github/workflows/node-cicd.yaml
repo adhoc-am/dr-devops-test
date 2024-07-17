@@ -22,7 +22,9 @@ jobs:
       run: |
         docker run -d -p 3000:8080 --name hello-world --rm hello-world
         docker ps
-        curl -s localhost:3000
+
+        echo "********************"
+        curl -s 127.0.0.1:3000
         docker stop hello-world
 
   # push:
