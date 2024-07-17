@@ -12,33 +12,28 @@ jobs:
       with:
         sparse-checkout: 'App'
 
-    - name: Build Docker Image
+    - name: Build Image
       run: |
         docker build -t hello-world .
         docker images
-        
-        echo "========================="
-        docker ps
-        echo "========================="
-        env
       working-directory: App
 
-    # - name: Test
-    #   run: |
-    #     docker build -t hello-world .
-    #     docker images
+    - name: Test
+      run: |
+        docker stop hello-world
+        docker run -d -p 3000:8080 --name hello-world --rm hello-world
+        docker ps
+        $resp=$(curl -s localhost:3000)
 
-    #     docker run -d -p 3000:8080 --name hello-world --rm hello-world
-    #     docker ps
-    #     $resp=$(curl -s localhost:3000)
-
-    #     if [[ $resp == "Hello World!" ]]; then
-    #       echo "Application works fine" && exit 0
-    #     else
-    #       echo "Something went wrong. See the response bellow for the hint..."
-    #       curl -i localhost:3000
-    #       exit 1
-    #   working-directory: App
+        if [[ $resp == "Hello World!" ]]; then
+          docker stop hello-world
+          echo "Application works fine" && exit 0
+        else
+          echo "Something went wrong. See the response bellow for the hint..."
+          curl -i localhost:3000
+          docker stop hello-world
+          exit 1
+      working-directory: App
 
   # push:
   #   needs: build
