@@ -1,0 +1,17 @@
+{
+    "name": "my-nodejs-app",
+    "version": "1.0.0",
+    "description": "A simple Node.js application with tests",
+    "main": "server.js",
+    "scripts": {
+      "start": "node server.js",
+      "test": "mocha test/server.test.js"
+    },
+    "dependencies": {
+      "express": "^4.17.1",
+    },
+    "devDependencies": {
+      "mocha": "^9.2.0",
+      "supertest": "^6.1.6"
+    }
+  }
