@@ -1,0 +1,33 @@
+name: node-cicd
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        path: 'App'
+
+    run: |
+      pwd
+      ls -l
+
+  unit-test:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - run: |
+        docker run -d -p 3000:8080 --name hello-world --rm adhocam/hello-world
+        resp=$(curl -s localhost:3000)
+
+        if [[ $resp == "Hello World!" ]]; then
+           echo "The app is working well" && exit 0
+        else
+          echo "Something went wrong, please, see the response below for the hint..."
+          curl -i localhost:3000
+          exit 1
