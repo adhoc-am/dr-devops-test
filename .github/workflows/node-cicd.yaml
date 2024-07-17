@@ -24,6 +24,4 @@ jobs:
     - name: Push Image DockerHub
       run: |
         docker run -d -p 3000:8080 --name hello-world --rm adhocam/hello-world
-        resp=$(curl -s localhost:3000)
-        
-        echo $resp
+        curl -s localhost:3000
