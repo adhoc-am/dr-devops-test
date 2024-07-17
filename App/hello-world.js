@@ -5,6 +5,6 @@ var server = http.createServer(function (req, res) {
   res.end('Hello World!');
 });
 
-server.listen(50001);
+server.listen(8080);
 
 module.exports = server;

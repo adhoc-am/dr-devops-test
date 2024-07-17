@@ -4,7 +4,7 @@ var server = require('../hello-world');
 
 describe('Hello World', function() {
   it('Should return HelloWorld!', function(done) {
-    http.get('http://localhost:50001', function(res) {
+    http.get('http://localhost:8080', function(res) {
       var body = '';
 
       res.on('data', function(chunk) {
