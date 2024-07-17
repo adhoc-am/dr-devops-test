@@ -3,7 +3,7 @@ var http = require('http');
 var server = require('../hello-world');
 
 describe('Hello World', function() {
-  it('Should return HelloWorld!', function(done) {
+  it('Should return Hello World!', function(done) {
     http.get('http://localhost:8080', function(res) {
       var body = '';
 
