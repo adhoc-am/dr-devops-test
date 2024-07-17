@@ -4,15 +4,23 @@ project
 │   README.md
 │
 └───App
-│     hello-world.js
-│     Dockerfile
+│   └───tests
+│          hello-world.test.js   
+│   hello-world.js
+│   Dockerfile
 │   
 └───Terraform
-│       
-│
+│   └───hello-world
+│           main.tf
+│           variables.tf      
 └───Helm
+│   └───hello-world
+│       └───templates
+│               deployment.yaml
+│               service.yaml
+│       Chart.yaml
+│       values.yaml
 │       
-│
 └───.github
     └───workflows
             node-cicd.yaml
@@ -69,3 +77,12 @@ Use Terraform to create a Kubernetes cluster (you can use a local cluster with k
 Deploy the application using the created Helm chart in the created cluster.
 Expose the application using a Kubernetes Service
 Provide the configuration files for Helm and Terraform.
+
+- Local minikube kubernetes cluster is used for Helm deployment.
+- Go to the Terraform/hello-world directory and run
+```
+terrafrom init
+terrafrom plan 
+terraform apply
+```
+- Terraform stat is stored localy
