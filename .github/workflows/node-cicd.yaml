@@ -3,7 +3,7 @@ name: node-cicd
 on: workflow_dispatch
 
 jobs:
-  build:
+  build_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,6 +19,23 @@ jobs:
 
         docker run -d -p 3000:8080 --name hello-world --rm hello-world
         docker ps
+      working-directory: App
+
+    - name: Test
+      run: |
+        docker build -t hello-world .
+        docker images
+
+        docker run -d -p 3000:8080 --name hello-world --rm hello-world
+        docker ps
+        $resp=$(curl -s localhost:3000)
+
+        if [[ $resp == "Hello World!" ]]; then
+          echo "Application works fine" && exit 0
+        else
+          echo "Something went wrong. See the response bellow for the hint..."
+          curl -i localhost:3000
+          exit 1
       working-directory: App
 
   # unit-test:
