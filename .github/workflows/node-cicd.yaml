@@ -43,7 +43,7 @@ jobs:
         docker images
         
         echo "Tag and push image to DockerHub"
-        docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PAT
+        echo "$DOCKERHUB_PAT" | docker login --username $DOCKERHUB_USER --password-stdin
         docker image tag hello-world:latest $DOCKERHUB_USER/hello-world:latest
         docker image push $DOCKERHUB_USER/hello-world:latest
       working-directory: App
