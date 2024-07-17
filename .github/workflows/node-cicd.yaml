@@ -20,7 +20,7 @@ jobs:
     - name: Unit Tests
       run: |
         npm install
-        npm test -- test/hello-world.test.js
+        npm test -- tests/hello-world.test.js
       working-directory: App
 
   # build-push:
