@@ -12,7 +12,7 @@ describe('HTTP Server Test', function() {
     let app;
   
     beforeEach(function(done) {
-      app = server.listen(8080, done);
+      app = server.listen(3000, done);
     });
   
     afterEach(function(done) {
