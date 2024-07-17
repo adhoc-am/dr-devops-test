@@ -13,8 +13,8 @@ jobs:
         path: 'App'
     - name: Build Docker Image
       run: |
+        cd App
         ls -l
-      working-directory: App
 
   unit-test:
     needs: build
