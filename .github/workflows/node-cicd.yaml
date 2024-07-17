@@ -1,0 +1,49 @@
+name: node-cicd
+
+on: workflow_dispatch
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: 'App'
+    
+    - name: Set Node version
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.15.1'
+
+    - name: Unit Tests
+      run: |
+        npm install
+        npm test -- tests/hello-world.test.js
+      working-directory: App
+
+  build-push:
+    needs: unit-test
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        sparse-checkout: 'App'
+
+    - name: Build Push Image
+      env:
+        DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+        DOCKERHUB_PAT: ${{ secrets.DOCKERHUB_PAT  }}
+      run: |
+        echo "Build Image"
+        docker build -t hello-world .
+        docker images
+        
+        echo "Tag and push image to DockerHub"
+        docker login -u $DOCKERHUB_USER -p $DOCKERHUB_PAT
+        docker image tag hello-world:latest $DOCKERHUB_USER/hello-world:latest
+        docker image push $DOCKERHUB_USER/hello-world:latest
+      working-directory: App

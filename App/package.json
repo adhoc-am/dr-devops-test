@@ -1,0 +1,16 @@
+{
+    "name": "hello-world",
+    "version": "1.0.0",
+    "description": "",
+    "main": "hello-world.js",
+    "scripts": {
+        "start": "node hello-world.js",
+        "test": "mocha"
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "chai": "^4.3.4",
+        "mocha": "^9.1.3"
+    }
+}
