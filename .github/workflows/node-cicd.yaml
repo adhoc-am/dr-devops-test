@@ -20,7 +20,6 @@ jobs:
 
     - name: Test
       run: |
-        docker stop hello-world
         docker run -d -p 3000:8080 --name hello-world --rm hello-world
         docker ps
         $resp=$(curl -s localhost:3000)
