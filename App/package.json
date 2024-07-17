@@ -4,7 +4,7 @@
     "description": "A simple Node.js application with tests",
     "main": "hello-world.js",
     "scripts": {
-      "start": "node server.js",
+      "start": "node hello-world.js",
       "test": "mocha tests/hello-world.test.js"
     },
     "dependencies": {
