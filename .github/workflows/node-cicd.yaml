@@ -12,12 +12,12 @@ jobs:
       with:
         sparse-checkout: 'App'
     
-    - name: Set up Node.js
+    - name: Set Node version
       uses: actions/setup-node@v2
       with:
         node-version: '20.15.1'
 
-    - name: Tests
+    - name: Unit Tests
       run: |
         npm install
         npm test -- test/hello-world.test.js
