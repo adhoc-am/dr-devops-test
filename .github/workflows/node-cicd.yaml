@@ -3,7 +3,7 @@ name: node-cicd
 on: workflow_dispatch
 
 jobs:
-  build:
+  unit-test:
     runs-on: ubuntu-latest
 
     steps:
@@ -11,32 +11,42 @@ jobs:
       uses: actions/checkout@v4
       with:
         sparse-checkout: 'App'
+    
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '20.15.1'
 
-    - name: Build Image
+    - name: Tests
       run: |
-        docker build -t hello-world .
-        docker images
+        npm install
+        npm test -- test/server.test.js
       working-directory: App
 
-    - name: Test
-      run: |
-        docker run -d -p 3000:8080 --name hello-world --rm hello-world
-        docker ps
-
-        echo "********************"
-        curl -s 127.0.0.1:3000
-        docker stop hello-world
-
-  # push:
-  #   needs: build
+  # build-push:
+  #   needs: unit-test
   #   runs-on: ubuntu-latest
 
   #   steps:
-  #   - name: Push Image DockerHub
+  #   - name: Checkout
+  #     uses: actions/checkout@v4
+  #     with:
+  #       sparse-checkout: 'App'
+
+  #   - name: Build Push Image
   #     env:
-  #           DockerHub_User: ${{ github.Dockerhub_User }}
-  #           DockerHub_PAT: ${{ secrets.DockerHub_PAT  }}
+  #       DockerHub_User: ${{ github.Dockerhub_User }}
+  #       DockerHub_PAT: ${{ secrets.DockerHub_PAT  }}
   #     run: |
+  #       echo "Build Image"
+  #       docker build -t hello-world .
+  #       docker images
+        
+  #       echo "Tag image for DockerHub"
   #       docker login -u $DockerHub_User -p $DockerHub_PAT
-  #       docker image tag hello-world:latest adhocam/hello-world:latest
-  #       docker image push adhocam/hello-world:latest
+  #       docker image tag hello-world:latest ${{ github.Dockerhub_User }}/hello-world:latest
+  #       docker image push ${{ github.Dockerhub_User }}/hello-world:latest
+        
+  #       echo "Checked DockerHub image pushed"
+  #       docker search ${{ github.Dockerhub_User }}/hello-world
+  #     working-directory: App
