@@ -20,7 +20,7 @@ jobs:
     - name: Tests
       run: |
         npm install
-        npm test -- test/server.test.js
+        npm test -- test/hello-world.test.js
       working-directory: App
 
   # build-push:
