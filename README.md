@@ -1,4 +1,7 @@
-## Part 1: Working with Docker
+- [Part 1: Working with Docker](#part-1-working-with-docker)
+- [Part 2: Working with CI/CD](#part-2-working-with-cicd)
+- [Part 3: Working with Helm and Terraform](#part-3-working-with-helm-and-terraform)
+
 ```
 project
 │   README.md
@@ -25,6 +28,8 @@ project
     └───workflows
             node-cicd.yaml
 ```
+
+## Part 1: Working with Docker
 
 Simple Dockerfile for a Node.js application that outputs "Hello, World!".
 Build a Docker image from this Dockerfile. 
